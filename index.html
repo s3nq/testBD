@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Тестирование для Зачёта</title>
+		<link rel="stylesheet" href="styles.css" />
+	</head>
+	<body>
+		<div class="container">
+			<h1>Тестирование для Зачёта</h1>
+			<div id="test-selection">
+				<h2>Выберите тест:</h2>
+				<select id="test-select">
+					<option value="">-- Выберите тест --</option>
+					<!-- Тесты будут загружены сюда через JavaScript -->
+				</select>
+				<button id="start-test-button" onclick="startTest()">
+					Начать тест
+				</button>
+			</div>
+			<div id="test-container" style="display: none">
+				<!-- Вопросы будут загружены сюда через JavaScript -->
+				<div id="question-container"></div>
+				<button
+					id="next-button"
+					onclick="loadNextQuestion()"
+					style="display: none"
+				>
+					Следующий вопрос
+				</button>
+			</div>
+		</div>
+
+		<script src="script.js"></script>
+	</body>
+</html>
