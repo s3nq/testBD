@@ -82,14 +82,14 @@ button:disabled {
 
 #start-test-button,
 #next-button,
-#test-container button {
+#test-container button[type='button'] {
 	margin-top: 20px;
 	background-color: #28a745;
 }
 
 #start-test-button:hover,
 #next-button:hover,
-#test-container button:hover {
+#test-container button[type='button']:hover {
 	background-color: #218838;
 }
 
@@ -99,4 +99,14 @@ button:disabled {
 	margin-bottom: 10px;
 	border-radius: 4px;
 	border: 1px solid #ccc;
+}
+
+form#answer-form button {
+	background-color: #007bff;
+	color: #fff;
+	border: none;
+}
+
+form#answer-form button:hover {
+	background-color: #0056b3;
 }
