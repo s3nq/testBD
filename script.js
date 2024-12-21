@@ -4,6 +4,7 @@ let selectedTest = null
 let score = 0
 let shuffledQuestions = []
 
+// Загрузка тестов из JSON файла
 fetch('tests.json')
 	.then(response => response.json())
 	.then(data => {
@@ -12,6 +13,7 @@ fetch('tests.json')
 	})
 	.catch(error => console.error('Ошибка загрузки тестов:', error))
 
+// Функция для заполнения выпадающего списка тестов
 function populateTestSelection() {
 	const testSelect = document.getElementById('test-select')
 	tests.forEach(test => {
@@ -22,6 +24,7 @@ function populateTestSelection() {
 	})
 }
 
+// Функция для начала теста
 function startTest() {
 	const testId = parseInt(document.getElementById('test-select').value)
 	if (isNaN(testId)) {
@@ -41,10 +44,17 @@ function startTest() {
 	currentQuestion = 0
 	score = 0
 
+	// Перемешиваем вопросы
 	shuffledQuestions = shuffleArray([...selectedTest.questions])
+
+	// Обновляем общее количество вопросов
+	document.getElementById('total-questions').textContent =
+		shuffledQuestions.length
+
 	displayQuestion()
 }
 
+// Функция для отображения текущего вопроса
 function displayQuestion() {
 	if (currentQuestion >= shuffledQuestions.length) {
 		displayResult()
@@ -55,7 +65,7 @@ function displayQuestion() {
 	const container = document.getElementById('question-container')
 	container.innerHTML = `
         <div class="question">
-            <h3>Вопрос ${q.id}: ${q.question}</h3>
+            <h3>Вопрос ${currentQuestion + 1}: ${q.question}</h3>
             <ul class="options">
                 ${shuffleArray([...q.options])
 									.map(
@@ -69,9 +79,15 @@ function displayQuestion() {
             <div id="feedback" class="feedback"></div>
         </div>
     `
+
+	// Обновляем текущий номер вопроса
+	document.getElementById('current-question').textContent = currentQuestion + 1
+
+	// Скрываем кнопку "Следующий вопрос" до выбора ответа
 	document.getElementById('next-button').style.display = 'none'
 }
 
+// Функция для проверки ответа
 function checkAnswer(selected) {
 	const q = shuffledQuestions[currentQuestion]
 	const feedback = document.getElementById('feedback')
@@ -97,14 +113,17 @@ function checkAnswer(selected) {
 		}
 	})
 
+	// Показываем кнопку "Следующий вопрос"
 	document.getElementById('next-button').style.display = 'block'
 }
 
+// Функция для загрузки следующего вопроса
 function loadNextQuestion() {
 	currentQuestion++
 	displayQuestion()
 }
 
+// Функция для отображения результата
 function displayResult() {
 	const container = document.getElementById('test-container')
 	container.innerHTML = `
@@ -114,13 +133,18 @@ function displayResult() {
     `
 }
 
+// Функция для перезапуска теста
 function restartTest() {
 	document.getElementById('test-container').style.display = 'none'
 	document.getElementById('test-selection').style.display = 'block'
 	document.getElementById('question-container').innerHTML = ''
 	document.getElementById('next-button').style.display = 'none'
+	// Сброс прогресса
+	document.getElementById('current-question').textContent = '0'
+	document.getElementById('total-questions').textContent = '0'
 }
 
+// Функция для перемешивания массива (Фишер-Йейтс)
 function shuffleArray(array) {
 	for (let i = array.length - 1; i > 0; i--) {
 		const j = Math.floor(Math.random() * (i + 1))
@@ -129,6 +153,7 @@ function shuffleArray(array) {
 	return array
 }
 
+// Функция для экранирования HTML-сущностей
 function escapeHtml(text) {
 	const map = {
 		'&': '&amp;',

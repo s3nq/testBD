@@ -20,8 +20,14 @@
 				</button>
 			</div>
 			<div id="test-container" style="display: none">
-				<!-- Вопросы будут загружены сюда через JavaScript -->
+				<!-- Прогресс теста -->
+				<div id="progress" class="progress">
+					Вопрос <span id="current-question">0</span> из
+					<span id="total-questions">0</span>
+				</div>
+				<!-- Контейнер для вопросов -->
 				<div id="question-container"></div>
+				<!-- Кнопка "Следующий вопрос" -->
 				<button
 					id="next-button"
 					onclick="loadNextQuestion()"
